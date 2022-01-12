@@ -49,7 +49,7 @@
         <dependency>
             <groupId>com.github.taccisum</groupId>
             <artifactId>swagger-spring-boot2-starter</artifactId>
-                <version>1.0.1</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -58,12 +58,12 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.3.2</version>
+            <version>3.3.2</version>
         </dependency>
         <dependency>
             <groupId>com.github.taccisum</groupId>
             <artifactId>domain-core</artifactId>
-                <version>0.3-SNAPSHOT</version>
+            <version>0.3-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -130,16 +130,16 @@
     </dependencyManagement>
 
     <repositories>
-            <repository>
-                <id>ali-maven</id>
-                <name>AliYun Maven</name>
-                <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-            </repository>
-            <repository>
-                <id>i61-maven</id>
-                <name>i61 Maven</name>
-                <url>i61</url>
-            </repository>
+        <repository>
+            <id>ali-maven</id>
+            <name>AliYun Maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
+        <repository>
+            <id>i61-maven</id>
+            <name>i61 Maven</name>
+            <url>i61</url>
+        </repository>
     </repositories>
 
     <build>
