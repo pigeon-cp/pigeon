@@ -1,0 +1,17 @@
+logging:
+  file:
+    name: /var/local/log/app.log
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'health, info'
+  endpoint:
+    health:
+      show-details: always
+server:
+  error:
+    include-stacktrace: never
+    include-exception: false
+swagger:
+  enabled: false

@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: 'dev, local'
+management:
+  server:
+    port: 18080
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+server:
+  port: 8081
+  error:
+    include-stacktrace: always
+    include-exception: true
+swagger:
+  base-package: com.github.taccisum.pigeon.controller
+  info:
+    title: Pigeon
