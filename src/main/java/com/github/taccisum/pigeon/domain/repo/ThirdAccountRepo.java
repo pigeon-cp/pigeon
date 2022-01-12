@@ -1,10 +1,10 @@
 package com.github.taccisum.pigeon.domain.repo;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.github.taccisum.domain.core.exception.DataErrorException;
 import com.github.taccisum.pigeon.dao.mapper.ThirdAccountMapper;
 import com.github.taccisum.pigeon.domain.data.ThirdAccountDO;
 import com.github.taccisum.pigeon.domain.entity.core.ThirdAccount;
-import com.github.taccisum.pigeon.domain.exception.DataErrorException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

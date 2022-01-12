@@ -1,9 +1,9 @@
 package com.github.taccisum.pigeon.domain.repo;
 
+import com.github.taccisum.domain.core.DomainException;
 import com.github.taccisum.pigeon.dao.mapper.MessageTemplateMapper;
 import com.github.taccisum.pigeon.domain.data.MessageTemplateDO;
 import com.github.taccisum.pigeon.domain.entity.core.MessageTemplate;
-import com.github.taccisum.pigeon.domain.exception.DataNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,9 +33,9 @@ public class MessageTemplateRepo {
                 .orElseThrow(() -> new MessageTemplateNotFoundException(id));
     }
 
-    public static class MessageTemplateNotFoundException extends DataNotFoundException {
+    public static class MessageTemplateNotFoundException extends DomainException {
         public MessageTemplateNotFoundException(long id) {
-            super("消息模板", id);
+            super("消息模板 %d", id);
         }
     }
 }

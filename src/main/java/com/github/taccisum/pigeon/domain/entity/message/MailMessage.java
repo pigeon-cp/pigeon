@@ -1,9 +1,9 @@
 package com.github.taccisum.pigeon.domain.entity.message;
 
+import com.github.taccisum.domain.core.exception.DataErrorException;
 import com.github.taccisum.pigeon.domain.entity.core.Message;
 import com.github.taccisum.pigeon.domain.entity.core.ServiceProvider;
 import com.github.taccisum.pigeon.domain.entity.core.sp.MailServiceProvider;
-import com.github.taccisum.pigeon.domain.exception.DataErrorException;
 import com.github.taccisum.pigeon.domain.repo.ServiceProviderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;

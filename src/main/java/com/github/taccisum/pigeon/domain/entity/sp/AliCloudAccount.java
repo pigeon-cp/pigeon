@@ -11,7 +11,6 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
 import com.github.taccisum.pigeon.domain.data.ThirdAccountDO;
 import com.github.taccisum.pigeon.domain.entity.core.ThirdAccount;
-import com.github.taccisum.pigeon.domain.exception.DomainException;
 import lombok.Data;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -116,7 +115,7 @@ public class AliCloudAccount extends ThirdAccount {
     /**
      * 阿里云 Open API 访问异常
      */
-    public static class OApiAccessException extends DomainException {
+    public static class OApiAccessException extends com.github.taccisum.domain.core.DomainException {
         public OApiAccessException(String key, ClientException cause) {
             super(String.format("阿里云 Open API \"%s\" 访问异常，错误码： %s，错误信息：%s", key, cause.getErrCode(), cause.getErrMsg()),
                     cause);

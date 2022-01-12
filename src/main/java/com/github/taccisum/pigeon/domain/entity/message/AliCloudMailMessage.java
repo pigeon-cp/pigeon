@@ -1,10 +1,10 @@
 package com.github.taccisum.pigeon.domain.entity.message;
 
+import com.github.taccisum.domain.core.exception.DataErrorException;
 import com.github.taccisum.pigeon.domain.data.MessageDO;
 import com.github.taccisum.pigeon.domain.entity.core.sp.MailServiceProvider;
 import com.github.taccisum.pigeon.domain.entity.sp.AliCloud;
 import com.github.taccisum.pigeon.domain.entity.sp.AliCloudAccount;
-import com.github.taccisum.pigeon.domain.exception.DataErrorException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.rmi.ServerException;
