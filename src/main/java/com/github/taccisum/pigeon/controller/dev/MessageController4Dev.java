@@ -1,8 +1,8 @@
 package com.github.taccisum.pigeon.controller.dev;
 
-import com.github.taccisum.pigeon.domain.entity.core.Message;
-import com.github.taccisum.pigeon.domain.entity.core.MessageTemplate;
-import com.github.taccisum.pigeon.domain.repo.MessageTemplateRepo;
+import com.github.taccisum.pigeon.core.entity.core.Message;
+import com.github.taccisum.pigeon.core.entity.core.MessageTemplate;
+import com.github.taccisum.pigeon.core.repo.MessageTemplateRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;

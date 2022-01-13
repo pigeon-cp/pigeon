@@ -1,10 +1,10 @@
 package com.github.taccisum.pigeon.domain.entity.message;
 
 import com.github.taccisum.domain.core.exception.DataErrorException;
-import com.github.taccisum.pigeon.domain.entity.core.Message;
-import com.github.taccisum.pigeon.domain.entity.core.ServiceProvider;
-import com.github.taccisum.pigeon.domain.entity.core.sp.MailServiceProvider;
-import com.github.taccisum.pigeon.domain.repo.ServiceProviderRepo;
+import com.github.taccisum.pigeon.core.entity.core.Message;
+import com.github.taccisum.pigeon.core.entity.core.ServiceProvider;
+import com.github.taccisum.pigeon.core.entity.core.sp.MailServiceProvider;
+import com.github.taccisum.pigeon.core.repo.ServiceProviderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -14,7 +14,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * @author taccisum - liaojinfeng6938@dingtalk.com
  * @since 0.1
  */
-public class MailMessage extends Message {
+public abstract class MailMessage extends Message {
     @Autowired
     private ServiceProviderRepo serviceProviderRepo;
 
@@ -34,6 +34,6 @@ public class MailMessage extends Message {
         if (sp instanceof MailServiceProvider) {
             return (MailServiceProvider) sp;
         }
-        throw new DataErrorException("MailMessage.ServiceProvider", this.id(), "邮件消息可能关联了错误的服务提供商：" + sp.getType().name() + "，请检查数据是否异常");
+        throw new DataErrorException("MailMessage.ServiceProvider", this.id(), "邮件消息可能关联了错误的服务提供商：" + sp.getType() + "，请检查数据是否异常");
     }
 }

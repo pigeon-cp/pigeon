@@ -1,8 +1,8 @@
 package com.github.taccisum.pigeon.domain.entity.message;
 
 import com.github.taccisum.domain.core.exception.DataErrorException;
-import com.github.taccisum.pigeon.domain.data.MessageDO;
-import com.github.taccisum.pigeon.domain.entity.core.sp.MailServiceProvider;
+import com.github.taccisum.pigeon.core.data.MessageDO;
+import com.github.taccisum.pigeon.core.entity.core.sp.MailServiceProvider;
 import com.github.taccisum.pigeon.domain.entity.sp.AliCloud;
 import com.github.taccisum.pigeon.domain.entity.sp.AliCloudAccount;
 import lombok.extern.slf4j.Slf4j;
@@ -56,6 +56,6 @@ public class AliCloudMailMessage extends MailMessage {
         if (sp instanceof AliCloud) {
             return (AliCloud) sp;
         }
-        throw new DataErrorException("AliCloudMailMessage.ServiceProvider", this.id(), "阿里云邮件消息可能关联了错误的服务提供商：" + sp.getType().name() + "，请检查数据是否异常");
+        throw new DataErrorException("AliCloudMailMessage.ServiceProvider", this.id(), "阿里云邮件消息可能关联了错误的服务提供商：" + sp.getType() + "，请检查数据是否异常");
     }
 }

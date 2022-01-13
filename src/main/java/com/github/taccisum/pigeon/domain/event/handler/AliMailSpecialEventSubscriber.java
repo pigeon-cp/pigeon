@@ -1,6 +1,7 @@
 package com.github.taccisum.pigeon.domain.event.handler;
 
-import com.github.taccisum.pigeon.domain.entity.core.Message;
+import com.github.taccisum.pigeon.core.entity.core.Message;
+import com.github.taccisum.pigeon.core.event.handler.DomainEventSubscriber;
 import org.springframework.stereotype.Component;
 
 /**

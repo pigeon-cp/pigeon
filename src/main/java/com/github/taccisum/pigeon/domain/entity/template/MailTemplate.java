@@ -1,7 +1,7 @@
-package com.github.taccisum.pigeon.domain.entity.message.template;
+package com.github.taccisum.pigeon.domain.entity.template;
 
-import com.github.taccisum.pigeon.domain.entity.core.Message;
-import com.github.taccisum.pigeon.domain.entity.core.MessageTemplate;
+import com.github.taccisum.pigeon.core.entity.core.Message;
+import com.github.taccisum.pigeon.core.entity.core.MessageTemplate;
 
 /**
  * @author taccisum - liaojinfeng6938@dingtalk.com

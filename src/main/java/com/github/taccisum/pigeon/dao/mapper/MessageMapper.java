@@ -1,7 +1,8 @@
 package com.github.taccisum.pigeon.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.github.taccisum.pigeon.domain.data.MessageDO;
+import com.github.taccisum.pigeon.core.dao.MessageDAO;
+import com.github.taccisum.pigeon.core.data.MessageDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 0.1
  */
 @Mapper
-public interface MessageMapper extends BaseMapper<MessageDO> {
+public interface MessageMapper extends MessageDAO, BaseMapper<MessageDO> {
 }

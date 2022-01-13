@@ -9,8 +9,8 @@ import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.github.taccisum.pigeon.domain.data.ThirdAccountDO;
-import com.github.taccisum.pigeon.domain.entity.core.ThirdAccount;
+import com.github.taccisum.pigeon.core.data.ThirdAccountDO;
+import com.github.taccisum.pigeon.core.entity.core.ThirdAccount;
 import lombok.Data;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

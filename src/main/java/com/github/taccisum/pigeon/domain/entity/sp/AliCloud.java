@@ -3,10 +3,11 @@ package com.github.taccisum.pigeon.domain.entity.sp;
 import com.github.taccisum.domain.core.DomainException;
 import com.github.taccisum.domain.core.Entity;
 import com.github.taccisum.domain.core.exception.DataNotFoundException;
-import com.github.taccisum.pigeon.domain.entity.core.ServiceProvider;
-import com.github.taccisum.pigeon.domain.entity.core.ThirdAccount;
-import com.github.taccisum.pigeon.domain.entity.core.sp.MailServiceProvider;
-import com.github.taccisum.pigeon.domain.repo.ThirdAccountRepo;
+import com.github.taccisum.pigeon.core.entity.core.ServiceProvider;
+import com.github.taccisum.pigeon.core.entity.core.ThirdAccount;
+import com.github.taccisum.pigeon.core.entity.core.sp.MailServiceProvider;
+import com.github.taccisum.pigeon.domain.entity.sp.AliCloudAccount;
+import com.github.taccisum.pigeon.core.repo.ThirdAccountRepo;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
@@ -19,14 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since 0.1
  */
 @Slf4j
-public class AliCloud extends Entity.Base<ServiceProvider.Type> implements
+public class AliCloud extends Entity.Base<String> implements
         ServiceProvider,
         MailServiceProvider {
     @Autowired
     private ThirdAccountRepo thirdAccountRepo;
 
     public AliCloud() {
-        super(Type.ALI_CLOUD);
+        super("ALI_CLOUD");
     }
 
     /**
