@@ -17,7 +17,7 @@ $ mvn package
 $ java -jar target/pigeon.jar \
     --spring.profiles.active=local \
     --spring.datasource.url={mysql_url} \
-    --spring.datasource.password={mysql_psd} \
+    --spring.datasource.password={mysql_psd}
 ```
 
 > tips: 你也可以通过启动配置 `pigeon.plugins.path` 指定插件所在目录
