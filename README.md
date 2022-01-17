@@ -2,6 +2,8 @@
 
 `Pigeon` 是一款开源业务消息中心，支持各大主流服务商（如阿里云、腾讯云等）.
 
+‣‣ [系统架构](docs/Arch.md)
+
 ## 快速启动
 
 需要先准备好数据库表，执行 DDL `docs/sql/init.schema.sql` 即可
