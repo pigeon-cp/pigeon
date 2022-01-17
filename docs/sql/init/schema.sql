@@ -1,22 +1,23 @@
 CREATE TABLE message
 (
-    id            BIGINT PRIMARY KEY AUTO_INCREMENT,
-    sender        VARCHAR(100)  NOT NULL,
-    target        VARCHAR(1000) NOT NULL,
-    type          VARCHAR(20)   NOT NULL,
-    sp_type       VARCHAR(20)   NOT NULL,
-    sp_account_id BIGINT        NOT NULL,
-    title         VARCHAR(100)  NOT NULL,
-    content       VARCHAR(1000) NOT NULL,
-    template_id   BIGINT        NOT NULL,
-    params        VARCHAR(1000) NOT NULL,
-    tag           VARCHAR(50)   NOT NULL,
-    status        enum (
+    id             BIGINT PRIMARY KEY AUTO_INCREMENT,
+    sender         VARCHAR(100)  NOT NULL,
+    target         VARCHAR(1000) NOT NULL,
+    target_user_id VARCHAR(64)   NULL,
+    type           VARCHAR(20)   NOT NULL,
+    sp_type        VARCHAR(20)   NOT NULL,
+    sp_account_id  BIGINT        NOT NULL,
+    title          VARCHAR(100)  NOT NULL,
+    content        VARCHAR(1000) NOT NULL,
+    template_id    BIGINT        NOT NULL,
+    params         VARCHAR(1000) NOT NULL,
+    tag            VARCHAR(50)   NOT NULL,
+    status         enum (
         'NOT_SEND',
         'DELIVERED',
         'SENT',
         'FAIL'
-        )                       not null
+        )                        not null
 );
 
 CREATE TABLE message_template

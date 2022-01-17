@@ -2,14 +2,14 @@ package com.github.taccisum.pigeon.controller.dev;
 
 import com.github.taccisum.pigeon.core.entity.core.Message;
 import com.github.taccisum.pigeon.core.entity.core.MessageTemplate;
+import com.github.taccisum.pigeon.core.entity.core.User;
 import com.github.taccisum.pigeon.core.entity.core.template.MailTemplate;
 import com.github.taccisum.pigeon.core.entity.core.template.SMSTemplate;
 import com.github.taccisum.pigeon.core.repo.MessageTemplateRepo;
+import com.github.taccisum.pigeon.core.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author taccisum - liaojinfeng6938@dingtalk.com
@@ -21,17 +21,29 @@ import java.util.List;
 public class MessageController4Dev {
     @Autowired
     private MessageTemplateRepo messageTemplateRepo;
+    @Autowired
+    private UserRepo userRepo;
 
     @PostMapping("/templates/{templateId}")
     public long send(@PathVariable Long templateId, @RequestParam String target, @RequestParam(required = false) String params) {
+        User user = null;
+        if (target.startsWith("u_")) {
+            user = userRepo.getOrThrow(target.replaceAll("^u_", ""));
+        }
+
         MessageTemplate template = messageTemplateRepo.getOrThrow(templateId);
         Message message;
+        String sender = null;
         if (template instanceof MailTemplate) {
-            message = template.initMessage("robot_01@smtp.66cn.top", target, params);
+            sender = "robot_01@smtp.66cn.top";
         } else if (template instanceof SMSTemplate) {
-            message = template.initMessage("sms_robot.pigeon", target, params);
+            sender = "sms_robot.pigeon";
+        }
+
+        if (user == null) {
+            message = template.initMessage(sender, target, params);
         } else {
-            message = template.initMessage(null, target, params);
+            message = template.initMessage(sender, user, params);
         }
         message.deliver();
         return message.id();
