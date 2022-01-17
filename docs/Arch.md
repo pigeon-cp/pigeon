@@ -8,4 +8,4 @@
 3. 插件程序，遵循一定规范并实现了我们定义的扩展点的项目，可以被主程序在运行时加载（如 [pigeon-aliyun](https://github.com/pigeon-cp/pigeon-aliyun)）
 
 
-<a href="https://ibb.co/1bfqX4h"><img src="https://i.ibb.co/XVZs5GN/arch.jpg" width=300 heigh=300 alt="arch" border="0" /></a>
+<a href="https://ibb.co/1bfqX4h"><img src="https://i.ibb.co/XVZs5GN/arch.jpg" width=500 heigh=500 alt="arch" border="0" /></a>
