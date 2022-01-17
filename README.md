@@ -8,7 +8,7 @@
 
 ### 本地
 
-将要加载的插件 jar 放在 `/tmp/jars` 目录下（TODO:: 待优化），执行以下命令即可
+将要加载的插件 jar 放在 `/usr/local/pigeon/plugins` 目录下，执行以下命令即可
 
 ```shell
 $ mvn package
@@ -18,7 +18,9 @@ $ java -jar target/pigeon.jar \
     --spring.datasource.password={mysql_psd} \
 ```
 
-访问 swagger 查看可用接口 `http://127.0.0.1:8081/swagger-ui.html`
+> tips: 你也可以通过启动配置 `pigeon.plugins.path` 修改插件所在目录
+
+访问 swagger ui 以查看可用接口 `http://127.0.0.1:8081/swagger-ui.html`
 
 ### Docker
 

@@ -2,11 +2,11 @@ package com.github.taccisum.pigeon.config;
 
 import org.pf4j.spring.SpringPluginManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PreDestroy;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -16,17 +16,22 @@ import java.nio.file.Paths;
 @Configuration
 public class PluginAutoConfiguration {
     @Autowired
-    private ApplicationContext context;
+    private ApplicationProperties properties;
 
     @Bean
     public PluginManagerBean pluginManager() {
-        PluginManagerBean pluginManagerBean = new PluginManagerBean();
-        return pluginManagerBean;
+        return new PluginManagerBean(
+                Paths.get(properties.getPlugins().getPath())
+        );
     }
 
     public static class PluginManagerBean extends SpringPluginManager {
         public PluginManagerBean() {
-            super(Paths.get("/tmp/jars"));
+            super(Paths.get("/usr/local/pigeon/plugins"));
+        }
+
+        public PluginManagerBean(Path pluginsRoot) {
+            super(pluginsRoot);
         }
 
         @PreDestroy
