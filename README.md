@@ -30,3 +30,17 @@ docker run xxx
 
 TODO::
 
+### 插件调试
+
+```shell
+$ mvn package
+$ java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=7896 \
+    -jar target/pigeon.jar \
+    --spring.profiles.active=local \
+    --spring.datasource.url={mysql_url} \
+    --spring.datasource.password={mysql_psd} \
+    --pigeon.plugins.path={your_plugin_src_root}
+```
+
+启动你的插件项目，让 debugger 连接到 7896 端口即可
+

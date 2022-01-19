@@ -25,7 +25,7 @@ public class MessageController4Dev {
     private UserRepo userRepo;
 
     @PostMapping("/templates/{templateId}")
-    public long send(@PathVariable Long templateId, @RequestParam String target, @RequestParam(required = false) String params) {
+    public long send(@PathVariable Long templateId, @RequestParam(required = false) String sender, @RequestParam String target, @RequestParam(required = false) String params) {
         User user = null;
         if (target.startsWith("u_")) {
             user = userRepo.getOrThrow(target.replaceAll("^u_", ""));
@@ -33,11 +33,15 @@ public class MessageController4Dev {
 
         MessageTemplate template = messageTemplateRepo.getOrThrow(templateId);
         Message message;
-        String sender = null;
-        if (template instanceof MailTemplate) {
-            sender = "robot_01@smtp.66cn.top";
-        } else if (template instanceof SMSTemplate) {
-            sender = "sms_robot.pigeon";
+
+        if (sender == null) {
+            if (template instanceof MailTemplate) {
+                sender = "robot_01@smtp.66cn.top";
+            } else if (template instanceof SMSTemplate) {
+                sender = "sms_robot.pigeon";
+            } else {
+                sender = "pigeon";
+            }
         }
 
         if (user == null) {
