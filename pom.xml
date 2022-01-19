@@ -10,7 +10,7 @@
 
     <name>Pigeon</name>
     <url>https://github.com/taccisum/pigeon</url>
-    <description>Pigeon 是一款开源业务消息中心，支持各大主流服务商（如阿里云、腾讯云等）.</description>
+    <description>Pigeon 是一款开源的、采用插件化架构的业务消息中心，旨在充当软件系统与用户之间的沟通桥梁。</description>
 
     <licenses>
         <license>
