@@ -9,7 +9,7 @@ CREATE TABLE message
     sp_account_id  BIGINT        NOT NULL,
     title          VARCHAR(100)  NOT NULL,
     content        VARCHAR(1000) NOT NULL,
-    template_id    BIGINT        NOT NULL,
+    template_id    BIGINT        NULL,
     params         VARCHAR(1000) NOT NULL,
     tag            VARCHAR(50)   NOT NULL,
     status         enum (
@@ -17,7 +17,8 @@ CREATE TABLE message
         'DELIVERED',
         'SENT',
         'FAIL'
-        )                        not null
+        )                        NOT NULL,
+    status_remark  VARCHAR(200)   NULL
 );
 
 CREATE TABLE message_template
@@ -27,8 +28,6 @@ CREATE TABLE message_template
     sp_type       VARCHAR(20)   NOT NULL,
     sp_account_id BIGINT        NOT NULL,
     third_code    VARCHAR(64)   NOT NULL,
-    title         varchar(200)  NOT NULL,
-    content       varchar(1000) NOT NULL,
     title         varchar(200)  NOT NULL,
     content       varchar(1000) NOT NULL,
     tag           VARCHAR(50)   NOT NULL
