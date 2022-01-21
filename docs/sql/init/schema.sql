@@ -12,13 +12,14 @@ CREATE TABLE message
     template_id    BIGINT        NULL,
     params         VARCHAR(1000) NOT NULL,
     tag            VARCHAR(50)   NOT NULL,
-    status         enum (
+    status         ENUM (
         'NOT_SEND',
         'DELIVERED',
         'SENT',
         'FAIL'
         )                        NOT NULL,
-    status_remark  VARCHAR(200)   NULL
+    status_remark  VARCHAR(200)  NULL,
+    mass_id        BIGINT        NULL
 );
 
 CREATE TABLE message_template
@@ -42,4 +43,48 @@ CREATE TABLE third_account
     app_secret   VARCHAR(50)  NULL,
     access_token VARCHAR(200) NULL,
     remark       VARCHAR(200) NULL
+);
+
+CREATE TABLE mass_tactic
+(
+    id               BIGINT PRIMARY KEY AUTO_INCREMENT,
+    type             VARCHAR(20)   NOT NULL,
+    status           ENUM (
+        'AVAILABLE',
+        'PREPARED',
+        'EXECUTING',
+        'ARCHIVED'
+        )                          NOT NULL,
+    has_test         TINYINT(1)    NULL,
+    must_test        TINYINT(1)    NOT NULL,
+    exec_times       INT           NOT NULL,
+    template_id      BIGINT        NOT NULL,
+    default_sender   VARCHAR(100)  NULL,
+    default_params   VARCHAR(1000) NULL,
+    source           VARCHAR(8192) NOT NULL,
+    source_type      ENUM (
+        'TEXT',
+        'FILE',
+        'URL'
+        )                          NOT NULL,
+    prepared_mass_id BIGINT        NULL,
+    created_at       DATETIME      NOT NULL
+);
+
+CREATE TABLE message_mass
+(
+    id            BIGINT PRIMARY KEY AUTO_INCREMENT,
+    test          TINYINT(1) NOT NULL,
+    status        ENUM (
+        'CREATING',
+        'NOT_DELIVERED',
+        'DELIVERING',
+        'ALL_DELIVERED'
+        )                    NOT NULL,
+    tactic_id     BIGINT     NULL,
+    created_at    DATETIME   NOT NULL,
+    size          INT        NULL,
+    success_count INT        NULL,
+    fail_count    INT        NULL,
+    error_count   INT        NULL
 );
