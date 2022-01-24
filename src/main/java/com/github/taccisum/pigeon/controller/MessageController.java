@@ -1,4 +1,4 @@
-package com.github.taccisum.pigeon.controller.dev;
+package com.github.taccisum.pigeon.controller;
 
 import com.github.taccisum.pigeon.core.data.MessageDO;
 import com.github.taccisum.pigeon.core.entity.core.Message;
@@ -11,19 +11,17 @@ import com.github.taccisum.pigeon.core.repo.MessageTemplateRepo;
 import com.github.taccisum.pigeon.core.repo.UserRepo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * @author taccisum - liaojinfeng6938@dingtalk.com
- * @since 0.1
+ * @since 0.1.1
  */
-@Profile({"local", "dev"})
-@RequestMapping("/dev/messages")
+@RequestMapping("/messages")
 @RestController
 @Transactional
-public class MessageController4Dev {
+public class MessageController {
     @Autowired
     private MessageRepo messageRepo;
     @Autowired
