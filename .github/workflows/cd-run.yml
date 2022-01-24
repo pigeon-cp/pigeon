@@ -29,7 +29,7 @@ jobs:
             docker run \
             -p $PORT:8081 \
             -v $HOST_LOG_PATH:/var/local/log \
-            -v $PLUGINS_ROOT:/usrt /local/pigeon/plugins \
+            -v $PLUGINS_ROOT:/usr/local/pigeon/plugins \
             -d \
             --name $CONTAINER_NAME \
             $IMAGE_TAG \
