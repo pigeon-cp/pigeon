@@ -22,13 +22,14 @@ jobs:
             IMAGE_TAG=${{ secrets.DOCKERHUB_USERNAME }}/pigeon
             CONTAINER_NAME=pigeon
             PORT=8082
+            mkdir -p $PLUGINS_ROOT
             mkdir -p $HOST_LOG_PATH
             docker pull $IMAGE_TAG
             docker rm -f $CONTAINER_NAME 2&>/dev/null
             docker run \
             -p $PORT:8081 \
             -v $HOST_LOG_PATH:/var/local/log \
-            -v $PLUGINS_ROOT:/usr/local/pigeon/plugins \
+            -v $PLUGINS_ROOT:/usrt /local/pigeon/plugins \
             -d \
             --name $CONTAINER_NAME \
             $IMAGE_TAG \
