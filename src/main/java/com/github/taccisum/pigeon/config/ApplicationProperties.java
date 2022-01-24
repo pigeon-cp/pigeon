@@ -13,6 +13,10 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "pigeon")
 public class ApplicationProperties {
     /**
+     * 项目版本号
+     */
+    private String version;
+    /**
      * 扩展插件相关配置
      */
     private Plugins plugins = new Plugins();

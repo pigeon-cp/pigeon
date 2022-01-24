@@ -20,3 +20,6 @@ swagger:
   base-package: com.github.taccisum.pigeon.controller
   info:
     title: Pigeon
+
+pigeon:
+  version: @project.version@
