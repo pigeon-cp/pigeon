@@ -16,13 +16,15 @@
 
 ## 快速启动
 
-需要先准备好数据库表，执行 DDL `docs/sql/init.schema.sql` 即可
+**准备工作**
 
-### 本地
+1. 需要先准备好数据库表，执行 DDL `docs/sql/init.schema.sql`
+2. 将要加载的插件 jar （例如 [pigeon-aliyun](https://github.com/pigeon-cp/pigeon-aliyun)）放在 `/usr/local/pigeon/plugins` 目录下
 
-将要加载的插件 jar 放在 `/usr/local/pigeon/plugins` 目录下，执行以下命令即可
+### 本地运行
 
 ```shell
+$ git clone ...
 $ mvn package
 $ java -jar target/pigeon.jar \
     --spring.profiles.active=local \
@@ -32,25 +34,25 @@ $ java -jar target/pigeon.jar \
 
 > tips: 你也可以通过启动配置 `pigeon.plugins.path` 指定插件所在目录
 
-访问 swagger ui 以查看可用接口 `http://127.0.0.1:8081/swagger-ui.html`
+访问 Swagger UI 以查看可用接口 `http://127.0.0.1:8081/swagger-ui.html`
 
-### Docker
+### Docker 容器
 
-docker run xxx
-
-TODO::
-
-### 插件调试
-
-```shell
-$ mvn package
-$ java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=7896 \
-    -jar target/pigeon.jar \
-    --spring.profiles.active=local \
-    --spring.datasource.url={mysql_url} \
-    --spring.datasource.password={mysql_psd} \
-    --pigeon.plugins.path={your_plugin_src_root}
+```bash
+$ docker run -p 8081:8081 \
+-v /usr/local/pigeon/plugins:/usr/local/pigeon/plugins \
+-d \
+--name pigeon \
+pigeon:latest \
+--spring.profiles.active=prod \
+--spring.datasource.url=jdbc:mysql://{url}/pigeon \
+--spring.datasource.username={user} \
+--spring.datasource.password={psd} \
 ```
 
-启动你的插件项目，让 debugger 连接到 7896 端口即可
+> tips: prod 环境默认关闭 Swagger UI，如果需要启用，可以加入参数 `--swagger.enabled=true`
+
+## 插件开发
+
+See [PLUGINS.md](./PLUGINS.md).
 
