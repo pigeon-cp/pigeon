@@ -17,6 +17,7 @@ jobs:
           username: ${{ secrets.ECS_USERNAME }}
           key: ${{ secrets.ECS_PRIVATE_KEY }}
           script: |
+            PLUGINS_ROOT=/var/local/pigeon/plugins
             HOST_LOG_PATH=/var/local/log/${{ github.repository }}
             IMAGE_TAG=${{ secrets.DOCKERHUB_USERNAME }}/pigeon
             CONTAINER_NAME=pigeon
@@ -27,6 +28,7 @@ jobs:
             docker run \
             -p $PORT:8081 \
             -v $HOST_LOG_PATH:/var/local/log \
+            -v $PLUGINS_ROOT:/var/local/pigeon/plugins \
             -d \
             --name $CONTAINER_NAME \
             $IMAGE_TAG \
@@ -34,6 +36,7 @@ jobs:
             --spring.datasource.url=jdbc:mysql://${{ secrets.MYSQL_URL }}/pigeon-demo \
             --spring.datasource.username=${{ secrets.MYSQL_USERNAME }} \
             --spring.datasource.password=${{ secrets.MYSQL_PASSWORD }} \
+            --pigeon.plugins.path=/var/local/pigeon/plugins \
             --swagger.enabled=true
   on-failure:
     runs-on: ubuntu-latest
