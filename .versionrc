@@ -1,0 +1,8 @@
+{
+  "bumpFiles": [
+    {
+      "filename": "pom.xml",
+      "updater": "version-updater.js"
+    }
+  ]
+}
