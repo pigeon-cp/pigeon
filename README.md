@@ -12,6 +12,8 @@
 
 要了解 `Pigeon` 的架构，请前往 ‣‣ [系统架构](docs/Arch.md)
 
+[CHANGELOG.md](./CHANGELOG.md)
+
 ## 快速启动
 
 需要先准备好数据库表，执行 DDL `docs/sql/init.schema.sql` 即可
