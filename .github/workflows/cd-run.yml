@@ -1,0 +1,37 @@
+name: CD-Run Workflow
+on:
+  workflow_run:
+    workflows: ['CD Workflow']
+    types:
+      - completed
+
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Connecting to AliCloud and run latest image.
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.ECS_HOST }}
+          username: ${{ secrets.ECS_USERNAME }}
+          key: ${{ secrets.ECS_PRIVATE_KEY }}
+          script: |
+            HOST_LOG_PATH=/var/local/log/${{ github.repository }}
+            IMAGE_TAG=${{ secrets.DOCKERHUB_USERNAME }}/pigeon
+            CONTAINER_NAME=pigeon
+            PORT=8080
+            mkdir -p $HOST_LOG_PATH
+            docker pull $IMAGE_TAG
+            docker rm -f $CONTAINER_NAME
+            docker run \
+            -p $PORT:8080 \
+            -v $HOST_LOG_PATH:/var/local/log \
+            -d \
+            --name $CONTAINER_NAME \
+            $IMAGE_TAG
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'Do nothing beacuse of "CD Workflow" is failure.'
