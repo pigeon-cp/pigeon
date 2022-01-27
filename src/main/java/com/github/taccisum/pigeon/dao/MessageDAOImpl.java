@@ -22,12 +22,13 @@ public class MessageDAOImpl implements MessageDAO {
     private MessageMapper mapper;
 
     @Override
-    public void updateMassIdBatch(Long massId, List<Long> list) {
+    public void updateMassIdBatch(Long massId, Long subMassId, List<Long> list) {
         if (CollectionUtils.isEmpty(list)) {
             return;
         }
         MessageDO o = new MessageDO();
         o.setMassId(massId);
+        o.setSubMassId(subMassId);
         mapper.update(o, new LambdaUpdateWrapper<MessageDO>()
                 .in(MessageDO::getId, list)
         );
@@ -38,6 +39,13 @@ public class MessageDAOImpl implements MessageDAO {
         return mapper.selectList(new LambdaQueryWrapper<MessageDO>()
                 .eq(MessageDO::getMassId, massId)
                 .last("LIMIT " + limit)
+        );
+    }
+
+    @Override
+    public List<MessageDO> selectListBySubMassId(Long subMassId) {
+        return mapper.selectList(new LambdaQueryWrapper<MessageDO>()
+                .eq(MessageDO::getSubMassId, subMassId)
         );
     }
 

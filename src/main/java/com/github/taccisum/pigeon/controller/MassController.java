@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 /**
  * 消息群发相关接口
@@ -21,7 +22,7 @@ import javax.annotation.Resource;
  */
 @RequestMapping("/masses")
 @RestController
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class MassController {
     @Resource
     private MassTacticRepo massTacticRepo;
@@ -73,9 +74,9 @@ public class MassController {
 
     @ApiOperation("执行群发策略")
     @PostMapping("/tactics/{id}/execute")
-    public long execute(@PathVariable long id) {
+    public long execute(@PathVariable long id, @RequestParam Boolean boost) {
         MassTactic tactic = massTacticRepo.getOrThrow(id);
-        MessageMass mass = tactic.exec();
+        MessageMass mass = tactic.exec(Optional.ofNullable(boost).orElse(false));
         return mass.id();
     }
 }
