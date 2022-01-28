@@ -17,3 +17,9 @@ create table sub_mass
     size       INT    NOT NULL,
     start      INT    NOT NULL
 );
+
+ALTER TABLE `message_template`
+    ADD COLUMN placeholder_rule VARCHAR(50) AFTER `type`;
+
+ALTER TABLE `message_mass`
+    ADD COLUMN type VARCHAR(50) AFTER `type`;
