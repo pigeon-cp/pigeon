@@ -7,12 +7,17 @@ import com.github.taccisum.pigeon.core.repo.MassTacticRepo;
 import com.github.taccisum.pigeon.dao.data.MassTacticDOImpl;
 import com.github.taccisum.pigeon.dto.CreateTacticRequest;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * 消息群发相关接口
@@ -20,6 +25,7 @@ import java.util.Optional;
  * @author taccisum - liaojinfeng6938@dingtalk.com
  * @since 0.1
  */
+@Slf4j
 @RequestMapping("/masses")
 @RestController
 @Transactional(rollbackFor = Exception.class)
@@ -75,8 +81,32 @@ public class MassController {
     @ApiOperation("执行群发策略")
     @PostMapping("/tactics/{id}/execute")
     public long execute(@PathVariable long id, @RequestParam Boolean boost) {
+        StopWatch sw = new StopWatch();
         MassTactic tactic = massTacticRepo.getOrThrow(id);
+        sw.start();
         MessageMass mass = tactic.exec(Optional.ofNullable(boost).orElse(false));
+        sw.stop();
+        log.debug("群发策略 {} 执行请求完成，mass id {}，总耗时 {}ms", id, mass.id(), sw.getLastTaskTimeMillis());
         return mass.id();
+    }
+
+    @Resource
+    private ApplicationContext context;
+
+    @Async
+    @ApiOperation("异步执行群发策略")
+    @PostMapping("/tactics/{id}/execute/async")
+    public CompletableFuture<Long> execute(@PathVariable long id) {
+        StopWatch sw = new StopWatch();
+        MassTactic tactic = massTacticRepo.getOrThrow(id);
+        sw.start();
+//        MessageMass mass = tactic.exec(Optional.ofNullable(boost).orElse(false));
+        CompletableFuture<MessageMass> future = tactic.execAsync();
+        sw.stop();
+
+        return future.thenApplyAsync(mass -> {
+            log.debug("群发策略 {} 执行请求完成，mass id {}，总耗时 {}ms", id, mass.id(), sw.getLastTaskTimeMillis());
+            return mass.id();
+        });
     }
 }

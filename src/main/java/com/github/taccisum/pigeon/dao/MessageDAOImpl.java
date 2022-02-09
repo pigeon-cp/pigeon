@@ -22,6 +22,11 @@ public class MessageDAOImpl implements MessageDAO {
     private MessageMapper mapper;
 
     @Override
+    public void insertAll(List<MessageDO> list) {
+        mapper.insertBatch(list);
+    }
+
+    @Override
     public void updateMassIdBatch(Long massId, Long subMassId, List<Long> list) {
         if (CollectionUtils.isEmpty(list)) {
             return;

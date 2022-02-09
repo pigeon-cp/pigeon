@@ -22,4 +22,4 @@ ALTER TABLE `message_template`
     ADD COLUMN placeholder_rule VARCHAR(50) AFTER `type`;
 
 ALTER TABLE `message_mass`
-    ADD COLUMN type VARCHAR(50) AFTER `type`;
+    ADD COLUMN type VARCHAR(50) AFTER id;

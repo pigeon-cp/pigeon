@@ -145,9 +145,13 @@
 
         <resources>
             <resource>
+                <directory>src/main/java</directory>
+            </resource>
+            <resource>
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**.*</include>
+                    <include>mapper/*.xml</include>
                 </includes>
                 <!-- 替换 @变量@ -->
                 <filtering>true</filtering>

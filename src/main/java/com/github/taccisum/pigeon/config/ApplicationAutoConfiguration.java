@@ -44,10 +44,10 @@ public class ApplicationAutoConfiguration implements InitializingBean {
     @Bean
     @Profile("local")
     public AsyncDeliverSubMassService syncDeliverSubMassService(SubMassRepo subMassRepo) {
+        log.warn("本地模式下消息子集合分发将同步执行，若此消息出现在线上环境，请及时排查是否配置或代码错误");
         return new AsyncDeliverSubMassService.Default(subMassRepo) {
             @Override
             public void publish(DeliverSubMassCommand command) {
-                log.warn("本地模式下消息子集合分发将同步执行，若此消息出现在线上环境，请及时排查是否配置或代码错误");
                 handle(command);
             }
         };

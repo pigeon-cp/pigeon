@@ -74,17 +74,17 @@ CREATE TABLE mass_tactic
 CREATE TABLE message_mass
 (
     id            BIGINT PRIMARY KEY AUTO_INCREMENT,
-    test          TINYINT(1) NOT NULL,
+    test          TINYINT(1)  NOT NULL,
     status        ENUM (
         'CREATING',
         'NOT_DELIVERED',
         'DELIVERING',
         'ALL_DELIVERED'
-        )                    NOT NULL,
-    tactic_id     BIGINT     NULL,
-    created_at    DATETIME   NOT NULL,
-    size          INT        NULL,
-    success_count INT        NULL,
-    fail_count    INT        NULL,
-    error_count   INT        NULL
+        )                     NOT NULL,
+    tactic_id     BIGINT      NULL,
+    created_at    DATETIME    NOT NULL,
+    size          INT         NULL,
+    success_count INT         NULL,
+    fail_count    INT         NULL,
+    error_count   INT         NULL
 );

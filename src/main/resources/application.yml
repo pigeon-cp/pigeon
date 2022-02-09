@@ -23,3 +23,12 @@ swagger:
 
 pigeon:
   version: @project.version@
+
+mybatis-plus:
+  mapper-locations: 'classpath:mapper/**.xml'
+
+logging:
+  level:
+    # 群发消息量过大时会导致出现海量的日志，应默认 info 级别
+    com.github.taccisum.pigeon.core.entity.core.message: info
+    com.github.taccisum.pigeon.core.entity.core.Message: info

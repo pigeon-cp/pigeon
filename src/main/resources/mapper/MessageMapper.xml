@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.taccisum.pigeon.dao.mapper.MessageMapper">
+
+    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO `message` (
+        `sender`,
+        `target`,
+        `target_user_id`,
+        `type`,
+        `sp_type`,
+        `sp_account_id`,
+        `title`,
+        `content`,
+        `template_id`,
+        `params`,
+        `tag`,
+        `status`,
+        `status_remark`,
+        `mass_id`,
+        `sub_mass_id`
+        ) VALUES
+        <foreach item="row" index="index" collection="messages" open="" separator="," close=";">
+            (
+            #{row.sender},
+            #{row.target},
+            #{row.targetUserId},
+            #{row.type},
+            #{row.spType},
+            #{row.spAccountId},
+            #{row.title},
+            #{row.content},
+            #{row.templateId},
+            #{row.params},
+            #{row.tag},
+            #{row.status},
+            #{row.statusRemark},
+            #{row.massId},
+            #{row.subMassId}
+            )
+        </foreach>
+    </insert>
+</mapper>
