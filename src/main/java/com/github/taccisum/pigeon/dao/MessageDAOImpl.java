@@ -40,6 +40,17 @@ public class MessageDAOImpl implements MessageDAO {
     }
 
     @Override
+    public void updateBatchByIdList(MessageDO o, List<Long> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return;
+        }
+        o.setId(null);
+        mapper.update(o, new LambdaUpdateWrapper<MessageDO>()
+                .in(MessageDO::getId, list)
+        );
+    }
+
+    @Override
     public List<MessageDO> selectListByMassId(Long massId, long limit) {
         return mapper.selectList(new LambdaQueryWrapper<MessageDO>()
                 .eq(MessageDO::getMassId, massId)
