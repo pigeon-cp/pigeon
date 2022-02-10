@@ -1,3 +1,10 @@
+spring:
+  datasource:
+    druid:
+      stat-view-servlet:
+        login-username: root
+#        login-password:    # specify via system property
+
 logging:
   file:
     name: /var/local/log/app.log

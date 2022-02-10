@@ -1,6 +1,15 @@
 spring:
   profiles:
     active: 'dev, local'
+  datasource:
+    druid:
+      validation-query: SELECT 1 FROM DUAL
+      filters: stat, wall
+      stat-view-servlet:
+        enabled: true
+        login-username: root
+        login-password: root
+
 management:
   server:
     port: 18080
