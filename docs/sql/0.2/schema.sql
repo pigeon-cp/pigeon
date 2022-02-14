@@ -6,9 +6,15 @@ ALTER TABLE `message`
     ADD COLUMN third_template_code VARCHAR(50) NULL AFTER `template_id`;
 ALTER TABLE `message`
     ADD COLUMN delivery_id VARCHAR(64) NULL AFTER `params`;
+ALTER TABLE `message`
+    ADD COLUMN ext VARCHAR(1000) NULL AFTER `sub_mass_id`;
 
 ALTER TABLE `mass_tactic`
     ADD COLUMN source_size INT NULL AFTER `source_type`;
+ALTER TABLE `mass_tactic`
+    ADD COLUMN default_signature VARCHAR(50) NULL AFTER `default_params`;
+ALTER TABLE `mass_tactic`
+    ADD COLUMN default_ext VARCHAR(1000) NULL AFTER `default_signature`;
 
 create table sub_mass
 (
