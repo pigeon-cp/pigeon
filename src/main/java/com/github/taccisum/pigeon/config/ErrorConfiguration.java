@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -21,9 +22,12 @@ import java.util.Map;
 @Slf4j
 @ControllerAdvice
 public class ErrorConfiguration {
+    @Resource
+    private ErrorCodeService errorCodeService;
+
     @ExceptionHandler(value = DomainException.class)
     public void handlerException(DomainException e) {
-        log.warn("发生业务异常", e);
+        log.warn(String.format("发生业务异常[%s]", errorCodeService.getErrorCode(e)), e);
         // rethrow 交由统一处理，此处仅打印日志
         throw e;
     }
@@ -32,7 +36,7 @@ public class ErrorConfiguration {
      * @since 0.2
      */
     @Bean
-    public ErrorAttributes errorAttributes(ErrorCodeService errorCodeService) {
+    public ErrorAttributes errorAttributes() {
         return new DefaultErrorAttributes() {
             @Override
             public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
