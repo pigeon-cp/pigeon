@@ -140,12 +140,7 @@
         <repository>
             <id>ali-maven</id>
             <name>AliYun Maven</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-        </repository>
-        <repository>
-            <id>i61-maven</id>
-            <name>i61 Maven</name>
-            <url>i61</url>
+            <url>https://maven.aliyun.com/nexus/content/groups/public</url>
         </repository>
     </repositories>
 
