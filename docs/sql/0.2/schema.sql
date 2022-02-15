@@ -40,3 +40,8 @@ ALTER TABLE `message_mass`
     ADD COLUMN message_type VARCHAR(50) AFTER `type`;
 ALTER TABLE `message_mass`
     ADD COLUMN sp_type VARCHAR(50) AFTER `message_type`;
+
+ALTER TABLE `third_account`
+    ADD COLUMN type VARCHAR(20) AFTER `id`;
+ALTER TABLE `third_account`
+    ADD COLUMN ext VARCHAR(1000) AFTER `remark`;
