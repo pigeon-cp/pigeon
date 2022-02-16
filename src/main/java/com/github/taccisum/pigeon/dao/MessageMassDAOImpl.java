@@ -1,7 +1,7 @@
 package com.github.taccisum.pigeon.dao;
 
-import com.github.taccisum.pigeon.core.dao.MessageMassDAO;
-import com.github.taccisum.pigeon.core.data.MessageMassDO;
+import pigeon.core.dao.MessageMassDAO;
+import pigeon.core.data.MessageMassDO;
 import com.github.taccisum.pigeon.dao.data.MessageMassDOImpl;
 import com.github.taccisum.pigeon.dao.mapper.MessageMassMapper;
 import org.springframework.stereotype.Component;

@@ -2,8 +2,8 @@ package com.github.taccisum.pigeon.dao;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.github.taccisum.pigeon.core.dao.MessageDAO;
-import com.github.taccisum.pigeon.core.data.MessageDO;
+import pigeon.core.dao.MessageDAO;
+import pigeon.core.data.MessageDO;
 import com.github.taccisum.pigeon.dao.mapper.MessageMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;

@@ -39,5 +39,5 @@ mybatis-plus:
 logging:
   level:
     # 群发消息量过大时会导致出现海量的日志，应默认 info 级别
-    com.github.taccisum.pigeon.core.entity.core.message: info
-    com.github.taccisum.pigeon.core.entity.core.Message: info
+    pigeon.core.entity.core.message: info
+    pigeon.core.entity.core.Message: info

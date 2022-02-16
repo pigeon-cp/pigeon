@@ -1,7 +1,7 @@
 package com.github.taccisum.pigeon.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.github.taccisum.pigeon.core.data.MessageDO;
+import pigeon.core.data.MessageDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

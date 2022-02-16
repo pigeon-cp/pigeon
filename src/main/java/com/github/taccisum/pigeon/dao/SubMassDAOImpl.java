@@ -1,8 +1,8 @@
 package com.github.taccisum.pigeon.dao;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.github.taccisum.pigeon.core.dao.SubMassDAO;
-import com.github.taccisum.pigeon.core.data.SubMassDO;
+import pigeon.core.dao.SubMassDAO;
+import pigeon.core.data.SubMassDO;
 import com.github.taccisum.pigeon.dao.data.SubMassDOImpl;
 import com.github.taccisum.pigeon.dao.mapper.SubMassMapper;
 import org.springframework.stereotype.Component;

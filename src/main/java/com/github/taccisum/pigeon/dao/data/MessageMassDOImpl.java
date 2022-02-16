@@ -1,7 +1,7 @@
 package com.github.taccisum.pigeon.dao.data;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.github.taccisum.pigeon.core.data.MessageMassDO;
+import pigeon.core.data.MessageMassDO;
 import lombok.Data;
 
 import java.util.Date;

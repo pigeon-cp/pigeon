@@ -1,7 +1,7 @@
 package com.github.taccisum.pigeon.dao;
 
-import com.github.taccisum.pigeon.core.dao.MassTacticDAO;
-import com.github.taccisum.pigeon.core.data.MassTacticDO;
+import pigeon.core.dao.MassTacticDAO;
+import pigeon.core.data.MassTacticDO;
 import com.github.taccisum.pigeon.dao.data.MassTacticDOImpl;
 import com.github.taccisum.pigeon.dao.mapper.MassTacticMapper;
 import org.springframework.stereotype.Component;

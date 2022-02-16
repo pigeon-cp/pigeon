@@ -1,9 +1,9 @@
 package com.github.taccisum.pigeon.controller;
 
-import com.github.taccisum.pigeon.core.data.MassTacticDO;
-import com.github.taccisum.pigeon.core.entity.core.MassTactic;
-import com.github.taccisum.pigeon.core.entity.core.MessageMass;
-import com.github.taccisum.pigeon.core.repo.MassTacticRepo;
+import pigeon.core.data.MassTacticDO;
+import pigeon.core.entity.core.MassTactic;
+import pigeon.core.entity.core.MessageMass;
+import pigeon.core.repo.MassTacticRepo;
 import com.github.taccisum.pigeon.dao.data.MassTacticDOImpl;
 import com.github.taccisum.pigeon.dto.CreateTacticRequest;
 import io.micrometer.core.annotation.Timed;

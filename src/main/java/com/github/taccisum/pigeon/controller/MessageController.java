@@ -1,15 +1,15 @@
 package com.github.taccisum.pigeon.controller;
 
-import com.github.taccisum.pigeon.core.data.MessageDO;
-import com.github.taccisum.pigeon.core.entity.core.Message;
-import com.github.taccisum.pigeon.core.entity.core.MessageTemplate;
-import com.github.taccisum.pigeon.core.entity.core.User;
-import com.github.taccisum.pigeon.core.entity.core.template.MailTemplate;
-import com.github.taccisum.pigeon.core.entity.core.template.SMSTemplate;
-import com.github.taccisum.pigeon.core.repo.MessageRepo;
-import com.github.taccisum.pigeon.core.repo.MessageTemplateRepo;
-import com.github.taccisum.pigeon.core.repo.UserRepo;
-import com.github.taccisum.pigeon.core.utils.JsonUtils;
+import pigeon.core.data.MessageDO;
+import pigeon.core.entity.core.Message;
+import pigeon.core.entity.core.MessageTemplate;
+import pigeon.core.entity.core.User;
+import pigeon.core.entity.core.template.MailTemplate;
+import pigeon.core.entity.core.template.SMSTemplate;
+import pigeon.core.repo.MessageRepo;
+import pigeon.core.repo.MessageTemplateRepo;
+import pigeon.core.repo.UserRepo;
+import pigeon.core.utils.JsonUtils;
 import com.github.taccisum.pigeon.dto.SendTemplateMessageRequest;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +84,7 @@ public class MessageController {
 
     @ApiOperation("发送一条模板消息")
     @PostMapping
-    public long send(@RequestParam Long templateId, @Valid @RequestBody SendTemplateMessageRequest dto) {
+    public long send(@RequestParam Long templateId, @RequestBody SendTemplateMessageRequest dto) {
         User user = null;
         if (dto.getTarget().startsWith("u_")) {
             user = userRepo.getOrThrow(dto.getTarget().replaceAll("^u_", ""));

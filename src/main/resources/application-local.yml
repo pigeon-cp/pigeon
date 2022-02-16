@@ -12,6 +12,6 @@ pigeon:
 
 logging:
   level:
-    com.github.taccisum.pigeon.core: debug
+    pigeon.core: debug
     com.github.taccisum.pigeon.controller: debug
 #    com.github.taccisum.pigeon.dao.mapper.MessageMapper: debug

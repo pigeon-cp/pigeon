@@ -1,8 +1,8 @@
 package com.github.taccisum.pigeon.dao;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.github.taccisum.pigeon.core.dao.ThirdAccountDAO;
-import com.github.taccisum.pigeon.core.data.ThirdAccountDO;
+import pigeon.core.dao.ThirdAccountDAO;
+import pigeon.core.data.ThirdAccountDO;
 import com.github.taccisum.pigeon.dao.mapper.ThirdAccountMapper;
 import org.springframework.stereotype.Component;
 
