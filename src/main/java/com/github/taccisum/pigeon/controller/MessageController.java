@@ -9,15 +9,21 @@ import com.github.taccisum.pigeon.core.entity.core.template.SMSTemplate;
 import com.github.taccisum.pigeon.core.repo.MessageRepo;
 import com.github.taccisum.pigeon.core.repo.MessageTemplateRepo;
 import com.github.taccisum.pigeon.core.repo.UserRepo;
+import com.github.taccisum.pigeon.core.utils.JsonUtils;
+import com.github.taccisum.pigeon.dto.SendTemplateMessageRequest;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @author taccisum - liaojinfeng6938@dingtalk.com
  * @since 0.1.1
  */
+@Validated
 @RequestMapping("/messages")
 @RestController
 @Transactional
@@ -78,20 +84,16 @@ public class MessageController {
 
     @ApiOperation("发送一条模板消息")
     @PostMapping
-    public long send(
-            @RequestParam Long templateId,
-            @RequestParam(required = false) String sender,
-            @RequestParam String target,
-            @RequestParam(required = false) String params
-    ) {
+    public long send(@RequestParam Long templateId, @Valid @RequestBody SendTemplateMessageRequest dto) {
         User user = null;
-        if (target.startsWith("u_")) {
-            user = userRepo.getOrThrow(target.replaceAll("^u_", ""));
+        if (dto.getTarget().startsWith("u_")) {
+            user = userRepo.getOrThrow(dto.getTarget().replaceAll("^u_", ""));
         }
 
         MessageTemplate template = messageTemplateRepo.getOrThrow(templateId);
         Message message;
 
+        String sender = dto.getSender();
         if (sender == null) {
             if (template instanceof MailTemplate) {
                 sender = "robot_01@smtp.66cn.top";
@@ -103,9 +105,9 @@ public class MessageController {
         }
 
         if (user == null) {
-            message = template.initMessage(sender, target, params);
+            message = template.initMessage(sender, dto.getTarget(), dto.getParams(), dto.getSignature(), JsonUtils.stringify(dto.getExt()));
         } else {
-            message = template.initMessage(sender, user, params);
+            message = template.initMessage(sender, user, dto.getParams(), dto.getSignature(), JsonUtils.stringify(dto.getExt()));
         }
         message.deliver();
         return message.id();
