@@ -4,6 +4,9 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author taccisum - liaojinfeng6938@dingtalk.com
  * @since 0.1
@@ -24,8 +27,12 @@ public class ApplicationProperties {
     @Data
     public static class Plugins {
         /**
+         * 插件所在的根路径
+         */
+        private String root = "/usr/local/pigeon/plugins";
+        /**
          * 插件所在路径
          */
-        private String path = "/usr/local/pigeon/plugins";
+        private List<String> paths = new ArrayList<>();
     }
 }
