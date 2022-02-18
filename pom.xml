@@ -41,7 +41,6 @@
         <dependency>
             <groupId>com.github.taccisum</groupId>
             <artifactId>pigeon-core</artifactId>
-            <version>0.2-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -125,9 +124,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-parent</artifactId>
-                <version>2.3.0.RELEASE</version>
+                <groupId>com.github.taccisum</groupId>
+                <artifactId>pigeon-parent</artifactId>
+                <version>0.2-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
