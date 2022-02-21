@@ -1,5 +1,12 @@
 package com.github.taccisum.pigeon.controller;
 
+import com.github.taccisum.pigeon.dto.SendMessageRequest;
+import com.github.taccisum.pigeon.dto.SendTemplateMessageRequest;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import pigeon.core.data.MessageDO;
 import pigeon.core.entity.core.Message;
 import pigeon.core.entity.core.MessageTemplate;
@@ -10,14 +17,6 @@ import pigeon.core.repo.MessageRepo;
 import pigeon.core.repo.MessageTemplateRepo;
 import pigeon.core.repo.UserRepo;
 import pigeon.core.utils.JsonUtils;
-import com.github.taccisum.pigeon.dto.SendTemplateMessageRequest;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 /**
  * @author taccisum - liaojinfeng6938@dingtalk.com
@@ -37,33 +36,17 @@ public class MessageController {
 
     @ApiOperation("发送一条消息")
     @PostMapping("{type}")
-    public long send(@PathVariable String type,
-                     @RequestParam(required = false) String sender,
-                     @RequestParam(required = false) String target,
-                     @RequestParam String title,
-                     @RequestParam String content,
-                     @RequestParam String spType,
-                     @RequestParam Long spAccountId
-    ) {
-        if (sender == null) {
-//            if (template instanceof MailTemplate) {
-//                sender = "robot_01@smtp.66cn.top";
-//            } else if (template instanceof SMSTemplate) {
-//                sender = "sms_robot.pigeon";
-//            } else {
-            sender = "pigeon";
-//            }
-        }
-
+    public long send(@PathVariable String type, @RequestBody SendMessageRequest dto) {
         User user = null;
+        String target = dto.getTarget();
         if (target.startsWith("u_")) {
             user = userRepo.getOrThrow(target.replaceAll("^u_", ""));
         }
         MessageDO o = new MessageDO();
         o.setType(type);
-        o.setSpType(spType);
-        o.setSpAccountId(spAccountId);
-        o.setSender(sender);
+        o.setSpType(dto.getChannel());
+        o.setSpAccountId(dto.getAccountId());
+        o.setSender(dto.getSender());
         if (user != null) {
             o.setTarget(user.getAccountFor(type));
             o.setTargetUserId(user.id());
@@ -71,8 +54,8 @@ public class MessageController {
             o.setTarget(target);
         }
 
-        o.setTitle(title);
-        o.setContent(content);
+        o.setTitle(dto.getTitle());
+        o.setContent(dto.getContent());
         o.setParams("{}");
         o.setTemplateId(null);
         o.setTag("");
