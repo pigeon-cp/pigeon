@@ -1,5 +1,6 @@
 package com.github.taccisum.pigeon.controller;
 
+import com.github.taccisum.pigeon.dao.data.MessageDOImpl;
 import com.github.taccisum.pigeon.dto.SendMessageRequest;
 import com.github.taccisum.pigeon.dto.SendTemplateMessageRequest;
 import io.swagger.annotations.ApiOperation;
@@ -42,7 +43,7 @@ public class MessageController {
         if (target.startsWith("u_")) {
             user = userRepo.getOrThrow(target.replaceAll("^u_", ""));
         }
-        MessageDO o = new MessageDO();
+        MessageDOImpl o = new MessageDOImpl();
         o.setType(type);
         o.setSpType(dto.getChannel());
         o.setSpAccountId(dto.getAccountId());

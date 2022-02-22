@@ -2,13 +2,13 @@ package com.github.taccisum.pigeon.dao;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import pigeon.core.dao.MessageDAO;
-import pigeon.core.data.MessageDO;
+import com.github.taccisum.pigeon.dao.data.MessageDOImpl;
 import com.github.taccisum.pigeon.dao.mapper.MessageMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import pigeon.core.dao.MessageDAO;
+import pigeon.core.data.MessageDO;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,13 +17,33 @@ import java.util.List;
  * @since 0.1
  */
 @Component
-public class MessageDAOImpl implements MessageDAO {
-    @Resource
-    private MessageMapper mapper;
+public class MessageDAOImpl extends BaseMapperDAOImpl<MessageDO, MessageDOImpl, MessageMapper> implements MessageDAO {
+    public MessageDAOImpl(MessageMapper mapper) {
+        super(mapper);
+    }
+
+    @Override
+    public <ID extends Serializable> ID insert0(MessageDOImpl data) {
+        setDefault(data);
+        return super.insert0(data);
+    }
 
     @Override
     public void insertAll(List<MessageDO> list) {
+        for (MessageDO item : list) {
+            setDefault(item);
+        }
+
         mapper.insertBatch(list);
+    }
+
+    private void setDefault(MessageDO data) {
+        if (data.getSender() == null) {
+            data.setSender("");
+        }
+        if (data.getSpAccountId() == null) {
+            data.setSpAccountId(-1L);
+        }
     }
 
     @Override
@@ -31,10 +51,10 @@ public class MessageDAOImpl implements MessageDAO {
         if (CollectionUtils.isEmpty(list)) {
             return;
         }
-        MessageDO o = new MessageDO();
+        MessageDOImpl o = this.newEmptyDataObject();
         o.setMassId(massId);
         o.setSubMassId(subMassId);
-        mapper.update(o, new LambdaUpdateWrapper<MessageDO>()
+        mapper.update(o, new LambdaUpdateWrapper<MessageDOImpl>()
                 .in(MessageDO::getId, list)
         );
     }
@@ -45,44 +65,32 @@ public class MessageDAOImpl implements MessageDAO {
             return;
         }
         o.setId(null);
-        mapper.update(o, new LambdaUpdateWrapper<MessageDO>()
-                .in(MessageDO::getId, list)
-        );
+        try {
+            mapper.update((MessageDOImpl) o, new LambdaUpdateWrapper<MessageDOImpl>()
+                    .in(MessageDO::getId, list)
+            );
+        } catch (ClassCastException e) {
+            throw new UnsupportedOperationException(o.getClass().getSimpleName());
+        }
     }
 
     @Override
-    public List<MessageDO> selectListByMassId(Long massId, long limit) {
-        return mapper.selectList(new LambdaQueryWrapper<MessageDO>()
-                .eq(MessageDO::getMassId, massId)
+    public List<? extends MessageDO> selectListByMassId(Long massId, long limit) {
+        return mapper.selectList(new LambdaQueryWrapper<MessageDOImpl>()
+                .eq(MessageDOImpl::getMassId, massId)
                 .last("LIMIT " + limit)
         );
     }
 
     @Override
-    public List<MessageDO> selectListBySubMassId(Long subMassId) {
-        return mapper.selectList(new LambdaQueryWrapper<MessageDO>()
-                .eq(MessageDO::getSubMassId, subMassId)
+    public List<? extends MessageDO> selectListBySubMassId(Long subMassId) {
+        return mapper.selectList(new LambdaQueryWrapper<MessageDOImpl>()
+                .eq(MessageDOImpl::getSubMassId, subMassId)
         );
     }
 
     @Override
-    public <ID extends Serializable> ID insert(MessageDO data) {
-        mapper.insert(data);
-        return (ID) data.getId();
-    }
-
-    @Override
-    public MessageDO selectById(Serializable id) {
-        return mapper.selectById(id);
-    }
-
-    @Override
-    public void updateById(MessageDO o) {
-        mapper.updateById(o);
-    }
-
-    @Override
-    public MessageDO newEmptyDataObject() {
-        return new MessageDO();
+    public MessageDOImpl newEmptyDataObject() {
+        return new MessageDOImpl();
     }
 }

@@ -1,13 +1,12 @@
 package com.github.taccisum.pigeon.dao;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import pigeon.core.dao.ThirdAccountDAO;
-import pigeon.core.data.ThirdAccountDO;
+import com.github.taccisum.pigeon.dao.data.ThirdAccountDOImpl;
 import com.github.taccisum.pigeon.dao.mapper.ThirdAccountMapper;
 import org.springframework.stereotype.Component;
+import pigeon.core.dao.ThirdAccountDAO;
+import pigeon.core.data.ThirdAccountDO;
 
-import javax.annotation.Resource;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,35 +14,20 @@ import java.util.List;
  * @since 0.2
  */
 @Component
-public class ThirdAccountDAOImpl implements ThirdAccountDAO {
-    @Resource
-    private ThirdAccountMapper mapper;
+public class ThirdAccountDAOImpl extends BaseMapperDAOImpl<ThirdAccountDO, ThirdAccountDOImpl, ThirdAccountMapper> implements ThirdAccountDAO {
+    public ThirdAccountDAOImpl(ThirdAccountMapper mapper) {
+        super(mapper);
+    }
 
     @Override
-    public List<ThirdAccountDO> selectByUsername(String name) {
-        return mapper.selectList(new LambdaQueryWrapper<ThirdAccountDO>()
-                .eq(ThirdAccountDO::getUsername, name)
+    public List<? extends ThirdAccountDO> selectByUsername(String name) {
+        return mapper.selectList(new LambdaQueryWrapper<ThirdAccountDOImpl>()
+                .eq(ThirdAccountDOImpl::getUsername, name)
         );
     }
 
     @Override
-    public <ID extends Serializable> ID insert(ThirdAccountDO data) {
-        mapper.insert(data);
-        return (ID) data.getId();
-    }
-
-    @Override
-    public ThirdAccountDO selectById(Serializable id) {
-        return mapper.selectById(id);
-    }
-
-    @Override
-    public void updateById(ThirdAccountDO o) {
-        mapper.updateById(o);
-    }
-
-    @Override
-    public ThirdAccountDO newEmptyDataObject() {
-        return new ThirdAccountDO();
+    public ThirdAccountDOImpl newEmptyDataObject() {
+        return new ThirdAccountDOImpl();
     }
 }
