@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import pigeon.core.excp.UnsupportedExtensionsException;
+import pigeon.core.repo.Factory;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -44,6 +46,17 @@ public class ErrorConfiguration {
                 Throwable error = this.getError(webRequest);
                 if (error instanceof DomainException) {
                     attrs.put("code", errorCodeService.getErrorCode((DomainException) error));
+                    if (error instanceof UnsupportedExtensionsException) {
+                        if (error instanceof Factory.NoSuitableFactoryFoundException) {
+                            String iFactoryName = ((Factory.NoSuitableFactoryFoundException) error).getType().getName();
+                            attrs.put("factory", iFactoryName);
+                        } else if (error instanceof Factory.CreateEntityException) {
+                            Factory.CreateEntityException e = (Factory.CreateEntityException) error;
+                            String pluginId = e.getPluginId();
+                            attrs.put("pluginId", pluginId);
+                            attrs.put("factory", e.getType().getName());
+                        }
+                    }
                 }
                 return attrs;
             }
