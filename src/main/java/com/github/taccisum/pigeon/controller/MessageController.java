@@ -4,11 +4,13 @@ import com.github.taccisum.pigeon.dao.data.MessageDOImpl;
 import com.github.taccisum.pigeon.dto.SendMessageRequest;
 import com.github.taccisum.pigeon.dto.SendTemplateMessageRequest;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import pigeon.core.data.MessageDO;
+import pigeon.core.docs.ExtensionType;
+import pigeon.core.docs.springfox.Extensible;
 import pigeon.core.entity.core.Message;
 import pigeon.core.entity.core.MessageTemplate;
 import pigeon.core.entity.core.User;
@@ -37,7 +39,9 @@ public class MessageController {
 
     @ApiOperation("发送一条消息")
     @PostMapping("{type}")
-    public long send(@PathVariable String type, @RequestBody SendMessageRequest dto) {
+    public long send(
+            @Extensible(ExtensionType.MESSAGE_TYPE) @ApiParam("消息类型") @PathVariable String type,
+            @RequestBody SendMessageRequest dto) {
         User user = null;
         String target = dto.getTarget();
         if (target.startsWith("u_")) {
