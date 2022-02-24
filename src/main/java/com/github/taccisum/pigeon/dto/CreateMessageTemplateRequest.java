@@ -19,14 +19,14 @@ public class CreateMessageTemplateRequest {
     @Extensible(ExtensionType.SERVICE_PROVIDER_TYPE)
     @ApiModelProperty(value = "模板所关联的第三方服务商", required = true)
     private String spType;
-    @ApiModelProperty(value = "模板所关联的三方服务商账号 id", required = true)
+    @ApiModelProperty(value = "模板所关联的三方服务商账号 id")
     private Long spAccountId;
-    @ApiModelProperty(value = "此消息模板所关联的在第三方服务商处维护的编码", required = true)
+    @ApiModelProperty(value = "此消息模板所关联的在第三方服务商处维护的编码")
     private String thirdCode;
     @ApiModelProperty(value = "模板标题", required = true)
     private String title;
     @ApiModelProperty(value = "模板内容", required = true)
     private String content;
-    @ApiModelProperty(value = "发送时使用的标签", required = true)
+    @ApiModelProperty(value = "发送时使用的标签")
     private String tag;
 }
