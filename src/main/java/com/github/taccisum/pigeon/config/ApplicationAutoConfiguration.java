@@ -13,17 +13,13 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import pigeon.core.PigeonContext;
 import pigeon.core.docs.err.ErrorCodeFinder;
 import pigeon.core.event.handler.DomainEventSubscriber;
-import pigeon.core.repo.SubMassRepo;
-import pigeon.core.service.AsyncDeliverSubMassService;
 import pigeon.core.utils.JsonUtils;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -51,23 +47,23 @@ public class ApplicationAutoConfiguration implements InitializingBean {
         return new GuavaEventBusAdapter(delegate);
     }
 
-    @Bean
-    @Profile("local")
-    public AsyncDeliverSubMassService syncDeliverSubMassService(SubMassRepo subMassRepo) {
-        log.warn("本地模式下消息子集合分发将同步执行，若此消息出现在线上环境，请及时排查是否配置或代码错误");
-        return new AsyncDeliverSubMassService.Default(subMassRepo) {
-            @Override
-            public void publish(DeliverSubMassCommand command) {
-                handle(command);
-            }
-        };
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public AsyncDeliverSubMassService asyncDeliverSubMassService(SubMassRepo subMassRepo) {
-        return new AsyncDeliverSubMassService.Default(subMassRepo);
-    }
+//    @Bean
+//    @Profile("local")
+//    public AsyncDeliverSubMassService syncDeliverSubMassService(SubMassRepo subMassRepo) {
+//        log.warn("本地模式下消息子集合分发将同步执行，若此消息出现在线上环境，请及时排查是否配置或代码错误");
+//        return new AsyncDeliverSubMassService.Default(subMassRepo) {
+//            @Override
+//            public void publish(DeliverSubMassCommand command) {
+//                handle(command);
+//            }
+//        };
+//    }
+//
+//    @Bean
+//    @ConditionalOnMissingBean
+//    public AsyncDeliverSubMassService asyncDeliverSubMassService(SubMassRepo subMassRepo) {
+//        return new AsyncDeliverSubMassService.Default(subMassRepo);
+//    }
 
 
     @Bean
