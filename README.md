@@ -61,7 +61,7 @@ pigeon:latest \
 ## 配置一览 
 
 |**配置名**|**类型**|**默认值**|**说明**|
-|--|--|--|
+| -- | -- | -- | -- |
 |spring.profiles.active|local/dev/prod|-|启动环境，影响其它配置的默认值|
 |spring.datasource.url|string|-|数据库访问地址|
 |spring.datasource.username|string|-|数据库账号|
