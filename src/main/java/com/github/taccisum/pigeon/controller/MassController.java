@@ -77,7 +77,8 @@ public class MassController {
         return mass.id();
     }
 
-    @ApiOperation("执行群发策略（超过 100 条消息将禁止使用）")
+    @Deprecated
+    @ApiOperation("执行群发策略（请勿继续使用该 api，后续版本将会删除）")
     @PostMapping("/tactics/{id}/execute")
     public long execute(@PathVariable long id, @RequestParam Boolean boost) {
         MassTactic tactic = massTacticRepo.getOrThrow(id);
