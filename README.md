@@ -40,6 +40,7 @@ $ java -jar target/pigeon.jar \
 
 > tips: 你也可以通过启动配置 `pigeon.plugins.path` 指定插件所在目录
 
+执行以下命令即可往控制台输出一条消息
 
 ```bash
 $ curl -X POST "http://localhost:8081/messages/LOG" -H "Content-Type: application/json" -d "{ \"channel\": \"PIGEON\", \"content\": \"hello pigeon\", \"target\": \"taccisum\", \"title\": \"demo\"}"
