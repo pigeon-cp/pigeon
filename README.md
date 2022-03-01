@@ -38,24 +38,16 @@ $ java -jar target/pigeon.jar \
     --spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 ```
 
-> tips: 
-> 1. 你也可以通过启动配置 `pigeon.plugins.path` 指定插件所在目录
-> 2. h2 仅供演示使用，考虑到兼容性及性能等问题，开发及部署阶段建议替换成 mysql
+> tips: 你也可以通过启动配置 `pigeon.plugins.path` 指定插件所在目录
 
-访问 Swagger UI 以查看可用接口 `http://127.0.0.1:8081/swagger-ui.html`
-
-### Docker 容器
 
 ```bash
-$ docker run -p 8081:8081 \
--v /usr/local/pigeon/plugins:/usr/local/pigeon/plugins \
--d \
---name pigeon \
-pigeon:latest \
---spring.profiles.active=prod \
---swagger.enabled=true
-# specify more properties here..
+$ curl -X POST "http://localhost:8081/messages/LOG" -H "Content-Type: application/json" -d "{ \"channel\": \"PIGEON\", \"content\": \"hello pigeon\", \"target\": \"taccisum\", \"title\": \"demo\"}"
 ```
+
+### API 文档
+
+访问 [`/swagger-ui.html`](http://127.0.0.1:8081/swagger-ui.html) 以查看所有接口文档。
  
 ## 配置一览 
 
@@ -65,8 +57,6 @@ pigeon:latest \
 |spring.datasource.url|string|-|数据库访问地址|
 |spring.datasource.username|string|-|数据库账号|
 |spring.datasource.password|string|-|数据库密码|
-|spring.datasource.driver-class-name|com.mysql.jdbc.Driver 或 org.h2.Driver|-|数据库驱动|
-|spring.h2.console.enabled|boolean|false|是否启用 h2 控制台|
 |swagger.enabled|boolean|true, prod: false|是否启用 swagger ui|
 
 ## 插件开发
