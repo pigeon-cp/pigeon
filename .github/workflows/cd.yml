@@ -25,7 +25,7 @@ jobs:
         run: mvn clean package -DskipTests
 
       - name: Compress & Package
-        run: tar -czvf pigeon.tar.gz ./target/pigeon.jar
+        run: cd target && tar -czvf pigeon.tar.gz pigeon.jar
 
       - name: Create Release
         id: create_release
