@@ -57,16 +57,17 @@ CREATE TABLE `message_mass`
 (
     `id`            bigint(20)                                                     NOT NULL AUTO_INCREMENT,
     `type`          varchar(20)                                                    NOT NULL,
-    `message_type`  varchar(50) DEFAULT NULL,
-    `sp_type`       varchar(50) DEFAULT NULL,
+    `message_type`  varchar(50)   DEFAULT NULL,
+    `sp_type`       varchar(50)   DEFAULT NULL,
     `test`          tinyint(1)                                                     NOT NULL,
     `status`        enum ('CREATING','NOT_DELIVERED','DELIVERING','ALL_DELIVERED') NOT NULL,
-    `tactic_id`     bigint(20)  DEFAULT NULL,
+    `tactic_id`     bigint(20)    DEFAULT NULL,
     `created_at`    datetime                                                       NOT NULL,
-    `size`          int(11)     DEFAULT NULL,
-    `success_count` int(11)     DEFAULT NULL,
-    `fail_count`    int(11)     DEFAULT NULL,
-    `error_count`   int(11)     DEFAULT NULL,
+    `size`          int(11)       DEFAULT NULL,
+    `success_count` int(11)       DEFAULT NULL,
+    `fail_count`    int(11)       DEFAULT NULL,
+    `error_count`   int(11)       DEFAULT NULL,
+    `ext`           varchar(1000) DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
 
