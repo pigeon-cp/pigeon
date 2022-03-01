@@ -1,70 +1,87 @@
-# Plugins Guide
+# Pigeon 插件开发指南
 
-开发一个插件，首先你要了解 `Pigeon` 的[架构](docs/Arch.md)
+在阅读以下文档前，你需要先安装 [pigeon-cli](https://github.com/pigeon-cp/pigeon-cli)。
 
-## 插件开发脚手架
+如果你对 `Pigeon` 的整体架构不了解，建议先阅读[架构设计](docs/Arch.md)。
 
-使用脚手架可以简化你的插件项目前期搭建过程
+## 快速开始
 
-TODO::
-
-## 插件调试
-
-插件调试是插件开发中非常重要的一节，借助 JDAP 即可。
-
-如果使用 jar 启动，可以加入以下 JVM 参数
-
-```shell
-$ mvn package
-$ java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=7896 \
-    -jar pigeon.jar
-```
-
-如果使用窗口启动，通过环境变量启用 Debug 模式即可
+创建插件项目
 
 ```bash
-docker run
--e DEBUG_MODE \
-... \
-pigeon:latest
+$ pigeon-cli plugin
 ```
 
-然后启动你的插件项目，让 debugger 连接到 7896 端口即可开始断点调试
+启动主程序并进入调试
 
-## 扩展点参考
+```shell
+$ pigeon-cli debug
+Java debugger connecting profile: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=56789
+Listening for transport dt_socket at address: 56789
+```
 
-### 实体
+根据 cli 的提示，选择你喜欢的调试工具（如 idea, eclipse 等自带的 debugger）进行连接即可进入调试
 
-有哪些实体可以使用是由领域模型决定的，而这些实体的行为如何则由你决定。
+> 插件调试本质上仍然是借助 [jdwp](https://docs.oracle.com/javase/8/docs/technotes/guides/troubleshoot/introclientissues005.html)，cli 工具只是作为辅助简化了调试的启动过程
 
-这是因为所有的实体都通过实体工厂创建，而实体工厂会匹配实体的特定属性，将该实体实例化为对应的子类型。你可以通过扩展实体工厂来改变实体的实例化过程。
-
-领域模型 => TODO::
-
-目前支持的实体工厂有：
-
-- TODO::xxx
-
-拓展一个实体工厂非常简单，如下
-
-
-### API
-
-你可以很轻易地扩展一个 API，使用 Spring MVC 支持的写法即可，如下
+扩展一个新的消息类型
 
 ```java
-@RestController
-@RequestMapping("plugins/foo")
-public class FooController {
-    @GetMapping
-    public String index() {
-        // 由于 `FooController` 是在插件定义的 Spring 上下文中的，因此如果你需要获取主程序 Spring 上下文中的 bean，需要通过 `PigeonContext` 的相关方法才行。
-        MessageTemplateRepo repo = PigeonContext.getRepo(MessageTemplateRepo.class);
-        MessageTemplate template = repo.getOrThrow(4);
-        return template.data().getContent();
+// FooMessageFactory.java
+@Extension
+public class FooMessageFactory implements MessageFactory {
+    @Override
+    public Message create(Long id, Criteria criteria) {
+        return new FooMessage(id);
+    }
+
+    @Override
+    public boolean match(Long id, Criteria o) {
+        return Objects.equals(o.getSpType(), "FOO");
     }
 }
 ```
 
-> tips: 插件中定义的 API 匹配优先级会低于主程序中定义的 API，因此最好避免路径定义出现冲突
- 
+```java
+// FooMessage.java
+public class FooMessage extends Message {
+    public FooMessage(Long id) {
+        super(id);
+    }
+
+    @Override
+    public boolean isRealTime() {
+        return true;
+    }
+
+    @Override
+    protected void doDelivery() {
+        MessageDO data = this.data();
+        System.out.printf("To %s.\n%s\n%s\n  - by %s",
+                data.getTarget(),
+                data.getTitle(),
+                data.getContent(),
+                data.getSender()
+        );
+    }
+
+    @Override
+    public MessageServiceProvider getServiceProvider() {
+        return null;
+    }
+}
+```
+
+发送一条 Foo 类型的消息
+
+```bash
+$ pigeon-cli
+> apis.messages.send('FOO', {target: "taccisum", title: "demo", content: "hello pigeon", channel: "FOO"})
+```
+
+## 更多参考资料
+
+- [领域模型](https://github.com/pigeon-cp/pigeon-core#models)
+- [领域事件](https://github.com/pigeon-cp/pigeon-core#events)
+- [扩展点一览](https://github.com/pigeon-cp/pigeon-core#extension-points)
+
