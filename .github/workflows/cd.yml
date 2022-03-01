@@ -14,11 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Extract Version
-        id: get_version
-        run: |
-          echo "::set-output name=VERSION::$(echo $GITHUB_REF | sed 's/refs\/tags\/v//')"
-      - run: echo ${{ steps.get_version.outputs.VERSION }}
 
       - uses: actions/setup-java@v2.5.0
         with:
@@ -29,16 +24,31 @@ jobs:
       - name: Build Jar Package
         run: mvn clean package -DskipTests
 
-      - uses: actions/create-release@latest
+      - name: Compress & Package
+        run: tar -czvf pigeon.tar.gz ./target/pigeon.jar
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.get_version.outputs.VERSION }}
-          release_name: Pigeon ${{ steps.get_version.outputs.VERSION }} Release
-          bodyFile: ./RELEASE.md
-          artifacts: ./target/pigeon.jar
+          tag_name: ${{ github.ref }}
+          release_name: Pigeon ${{ github.ref }} Release
+          body_path: "./RELEASE.md"
           draft: false
           prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./pigeon.tar.gz
+          asset_name: pigeon.tar.gz
+          asset_content_type: application/zip
 
   publish-dockerhub:
     runs-on: ubuntu-latest
