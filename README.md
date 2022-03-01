@@ -21,8 +21,10 @@
 
 **准备工作**
 
-1. 需要先准备好数据库表，执行 DDL `docs/sql/init.schema.sql`
+1. 需要先准备好数据库表，执行 DDL [schema.sql](./docs/schema.sql)
 2. 将要加载的插件 jar （例如 [pigeon-aliyun](https://github.com/pigeon-cp/pigeon-aliyun)）放在 `/usr/local/pigeon/plugins` 目录下
+
+> 你也可以使用 `pigeon-cli migrate` 来完成数据表创建操作
 
 ### 本地运行
 
@@ -30,12 +32,10 @@
 $ git clone ...
 $ mvn package
 $ java -jar target/pigeon.jar \
-    --spring.profiles.active=local \
-    --spring.datasource.url=jdbc:h2:mem:pigeon
-    --spring.datasource.username=sa
+    --spring.datasource.url=jdbc:mysql://127.0.0.1:3306/pigeon
+    --spring.datasource.username=
     --spring.datasource.password=
-    --spring.datasource.driver-class-name=org.h2.Driver
-    --spring.h2.console.enabled=true
+    --spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 ```
 
 > tips: 
@@ -53,10 +53,9 @@ $ docker run -p 8081:8081 \
 --name pigeon \
 pigeon:latest \
 --spring.profiles.active=prod \
+--swagger.enabled=true
 # specify more properties here..
 ```
-
-> tips: prod 环境默认关闭 Swagger UI，如果需要启用，可以加入参数 `--swagger.enabled=true`
  
 ## 配置一览 
 
@@ -68,6 +67,7 @@ pigeon:latest \
 |spring.datasource.password|string|-|数据库密码|
 |spring.datasource.driver-class-name|com.mysql.jdbc.Driver 或 org.h2.Driver|-|数据库驱动|
 |spring.h2.console.enabled|boolean|false|是否启用 h2 控制台|
+|swagger.enabled|boolean|true, prod: false|是否启用 swagger ui|
 
 ## 插件开发
 
