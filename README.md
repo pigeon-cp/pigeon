@@ -21,8 +21,9 @@
 
 **准备工作**
 
-1. 需要先准备好数据库表，执行 DDL [schema.sql](./docs/schema.sql)
-2. 将要加载的插件 jar （例如 [pigeon-aliyun](https://github.com/pigeon-cp/pigeon-aliyun)）放在 `/usr/local/pigeon/plugins` 目录下
+1. 下载 [Release](https://github.com/pigeon-cp/pigeon/releases) 包并解压
+2. 需要先准备好数据库表，执行 DDL [schema.sql](./docs/schema.sql)
+3. 将要加载的插件 jar （例如 [pigeon-aliyun](https://github.com/pigeon-cp/pigeon-aliyun)）放在 `/usr/local/pigeon/plugins` 目录下
 
 > 你也可以使用 `pigeon-cli migrate` 来完成数据表创建操作
 
