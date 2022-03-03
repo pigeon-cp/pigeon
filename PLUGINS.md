@@ -81,6 +81,7 @@ $ pigeon-cli
 
 ## 更多参考资料
 
+- [系统架构](docs/Arch.md)
 - [领域模型](https://github.com/pigeon-cp/pigeon-core#models)
 - [领域事件](https://github.com/pigeon-cp/pigeon-core#events)
 - [扩展点一览](https://github.com/pigeon-cp/pigeon-core#extension-points)

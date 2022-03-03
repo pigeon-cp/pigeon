@@ -13,8 +13,6 @@
 - 主流服务商（阿里云/腾讯云等）支持（通过插件）
 - 插件化机制（更多能力等你自由扩展）
 
-要了解 `Pigeon` 的架构，请前往 ‣‣ [系统架构](docs/Arch.md)
-
 [CHANGELOG.md](./CHANGELOG.md)
 
 ## 快速启动
@@ -57,6 +55,11 @@ $ curl -X POST "http://localhost:8081/messages/LOG" -H "Content-Type: applicatio
 |spring.datasource.username|string|-|数据库账号|
 |spring.datasource.password|string|-|数据库密码|
 |swagger.enabled|boolean|true, prod: false|是否启用 swagger ui|
+
+## 更多参考资料
+
+- [系统架构](docs/Arch.md)
+- [领域模型](https://github.com/pigeon-cp/pigeon-core#models)
 
 ## 插件开发
 
