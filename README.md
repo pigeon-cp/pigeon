@@ -27,16 +27,13 @@
 
 > 你也可以使用 `pigeon-cli migrate` 来完成数据表创建操作
 
-### 本地运行
+### 启动应用
 
 ```shell
-$ git clone ...
-$ mvn package
-$ java -jar target/pigeon.jar \
+$ java -jar pigeon.jar \
     --spring.datasource.url=jdbc:mysql://127.0.0.1:3306/pigeon
     --spring.datasource.username=
     --spring.datasource.password=
-    --spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 ```
 
 > tips: 你也可以通过启动配置 `pigeon.plugins.path` 指定插件所在目录
@@ -44,7 +41,7 @@ $ java -jar target/pigeon.jar \
 执行以下命令即可往控制台输出一条消息
 
 ```bash
-$ curl -X POST "http://localhost:8081/messages/LOG" -H "Content-Type: application/json" -d "{ \"channel\": \"PIGEON\", \"content\": \"hello pigeon\", \"target\": \"taccisum\", \"title\": \"demo\"}"
+$ curl -X POST "http://localhost:8081/messages/LOG" -H "Content-Type: application/json" -d '{"channel": "PIGEON", "content": "hello pigeon", "target": "taccisum", "title": "demo"}'
 ```
 
 ### API 文档
