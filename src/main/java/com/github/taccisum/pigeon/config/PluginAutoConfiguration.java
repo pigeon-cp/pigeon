@@ -36,6 +36,9 @@ public class PluginAutoConfiguration {
         public PluginManagerBean(String pluginRoot, List<String> plugins) {
             super(Paths.get(pluginRoot));
             this.plugins = plugins;
+            // should version of pigeon-core instead pigeon
+            // TODO:: move to pigeon-core next version
+            this.setSystemVersion("0.2.0");
         }
 
         public PluginManagerBean(Path pluginsRoot) {
@@ -48,7 +51,7 @@ public class PluginAutoConfiguration {
                 try {
                     this.loadPlugin(Paths.get(plugin));
                 } catch (PluginRuntimeException e) {
-                   log.error(e.getMessage(), e);
+                    log.error(e.getMessage(), e);
                 }
             }
             super.loadPlugins();
