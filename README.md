@@ -29,9 +29,9 @@
 
 ```shell
 $ java -jar pigeon.jar \
-    --spring.datasource.url=jdbc:mysql://127.0.0.1:3306/pigeon
-    --spring.datasource.username=
-    --spring.datasource.password=
+    --spring.datasource.url=jdbc:mysql://127.0.0.1:3306/pigeon \
+    --spring.datasource.username=xxx \
+    --spring.datasource.password=xxx
 ```
 
 > tips: 你也可以通过启动配置 `pigeon.plugins.path` 指定插件所在目录
