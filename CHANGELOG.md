@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/pigeon-cp/pigeon/compare/v0.2.0...v0.2.1) (2022-03-03)
+
+### Bug Fixes
+
+* specify system version for valid plugin version constraint ([8ed3ea8](https://github.com/pigeon-cp/pigeon/commit/8ed3ea8c433e6904fe1b9d8ed226866eba1d6f82))
+
 ## [0.2.0](https://github.com/pigeon-cp/pigeon/compare/v0.1.1...v0.2.0) (2022-02-28)
 
 ### Features
